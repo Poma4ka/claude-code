@@ -28,6 +28,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         tree \
         unzip \
         zip \
+        poppler-utils \
     && rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g @anthropic-ai/claude-code@latest \
@@ -35,7 +36,9 @@ RUN npm install -g @anthropic-ai/claude-code@latest \
 
 WORKDIR /app
 
-ENV IS_SANDBOX=true
+ENV IS_SANDBOX=true \
+    CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT=true \
+    DISABLE_TELEMETRY=true \
 
 USER root
 
